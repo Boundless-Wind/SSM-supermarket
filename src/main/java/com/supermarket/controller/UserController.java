@@ -18,11 +18,21 @@ public class UserController {
     private UserService userService;
 
     /**
-     * 登录页面
+     //  * 默认页面
+     //  *
+     //  * @return login.html
+     //  */
+    // @GetMapping("/")
+    // public String firstpage(){
+    //     return "login.html";
+    // }
+
+    /**
+     * 登录页面、主页
      *
      * @return login.html
      */
-    @GetMapping("/login")
+    @GetMapping({"/login", "/"})
     public String login() {
         return "login";
     }
@@ -45,7 +55,7 @@ public class UserController {
         // 登录失败，回到login.html
         if (user == null || !userPassword.equals(user.getUserPassword())) {
             model.addAttribute("error", "用户名或密码不正确");
-            return "login";
+            return "redirect:/login";
         }
 
         // 登录成功，转到welcome.html
@@ -54,13 +64,38 @@ public class UserController {
     }
 
     /**
-     * 欢迎页面
+     * 登录成功返回welcome，失败跳转失败页面
      *
+     * @param session session
      * @return welcome.html
      */
     @GetMapping("/welcome")
-    public String welcome() {
+    public String welcome(HttpSession session) {
+        // 如果用户没有登录就回到login
+        if (session.getAttribute("user") == null) return "redirect:/syserror";
         return "welcome";
+    }
+
+    /**
+     * 退出登录
+     *
+     * @param session session
+     * @return login.html
+     */
+    @GetMapping("/logout")  // 退出登录页面
+    public String logout(HttpSession session) {
+        session.removeAttribute("user"); // 清除掉Session中user的值
+        return "redirect:/login"; // 回到login.sjp
+    }
+
+    /**
+     * 出错页面
+     *
+     * @return syserror.html
+     */
+    @GetMapping("/syserror") // 出错页面
+    public String sysError() {
+        return "syserror";
     }
 
 }
