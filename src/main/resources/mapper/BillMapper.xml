@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.supermarket.dao.BillMapper">
+
+    <!-- 创建一个对订单表分页的查询 -->
+    <select id="getBillListByPage" resultMap="BillWithProName">
+        select * from smbms_bill b join smbms_provider p on b.providerId = p.id
+        <where>
+            <if test="productName != null and productName != ''">
+                and b.productName like CONCAT ('%',#{productName},'%')
+            </if>
+            <if test="providerId != null  and providerId!=0">
+                and b.providerId = #{providerId}
+            </if>
+        </where>
+        order by b.id
+    </select>
+    <resultMap id="BillWithProName" type="Bill">
+        <id property="id" column="id"/>
+        <association property="provider" javaType="Provider">
+            <id property="id" column="id"/>
+        </association>
+    </resultMap>
+
+</mapper>

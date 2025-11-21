@@ -4,105 +4,105 @@ import java.util.Date;
 
 public class Address {
 
-  private int id;
-  private String contact;
-  private String addressDesc;
-  private String postCode;
-  private String tel;
-  private int createdBy;
-  private Date creationDate;
-  private int modifyBy;
-  private Date modifyDate;
-  private int userId;
+    private int id;
+    private String contact;
+    private String addressDesc;
+    private String postCode;
+    private String tel;
+    private int createdBy;
+    private Date creationDate;
+    private int modifyBy;
+    private Date modifyDate;
+    private int userId;
 
 
-  public int getId() {
-    return id;
-  }
+    public int getId() {
+        return id;
+    }
 
-  public void setId(int id) {
-    this.id = id;
-  }
-
-
-  public String getContact() {
-    return contact;
-  }
-
-  public void setContact(String contact) {
-    this.contact = contact;
-  }
+    public void setId(int id) {
+        this.id = id;
+    }
 
 
-  public String getAddressDesc() {
-    return addressDesc;
-  }
+    public String getContact() {
+        return contact;
+    }
 
-  public void setAddressDesc(String addressDesc) {
-    this.addressDesc = addressDesc;
-  }
-
-
-  public String getPostCode() {
-    return postCode;
-  }
-
-  public void setPostCode(String postCode) {
-    this.postCode = postCode;
-  }
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
 
 
-  public String getTel() {
-    return tel;
-  }
+    public String getAddressDesc() {
+        return addressDesc;
+    }
 
-  public void setTel(String tel) {
-    this.tel = tel;
-  }
-
-
-  public int getCreatedBy() {
-    return createdBy;
-  }
-
-  public void setCreatedBy(int createdBy) {
-    this.createdBy = createdBy;
-  }
+    public void setAddressDesc(String addressDesc) {
+        this.addressDesc = addressDesc;
+    }
 
 
-  public Date getCreationDate() {
-    return creationDate;
-  }
+    public String getPostCode() {
+        return postCode;
+    }
 
-  public void setCreationDate(Date creationDate) {
-    this.creationDate = creationDate;
-  }
-
-
-  public int getModifyBy() {
-    return modifyBy;
-  }
-
-  public void setModifyBy(int modifyBy) {
-    this.modifyBy = modifyBy;
-  }
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
+    }
 
 
-  public Date getModifyDate() {
-    return modifyDate;
-  }
+    public String getTel() {
+        return tel;
+    }
 
-  public void setModifyDate(Date modifyDate) {
-    this.modifyDate = modifyDate;
-  }
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
 
 
-  public int getUserId() {
-    return userId;
-  }
+    public int getCreatedBy() {
+        return createdBy;
+    }
 
-  public void setUserId(int userId) {
-    this.userId = userId;
-  }
+    public void setCreatedBy(int createdBy) {
+        this.createdBy = createdBy;
+    }
+
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+
+    public int getModifyBy() {
+        return modifyBy;
+    }
+
+    public void setModifyBy(int modifyBy) {
+        this.modifyBy = modifyBy;
+    }
+
+
+    public Date getModifyDate() {
+        return modifyDate;
+    }
+
+    public void setModifyDate(Date modifyDate) {
+        this.modifyDate = modifyDate;
+    }
+
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
 }
