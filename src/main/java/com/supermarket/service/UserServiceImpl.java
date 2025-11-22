@@ -24,4 +24,34 @@ public class UserServiceImpl implements UserService {
         return userMapper.getUserListByPage(queryUserName, queryUserRole);
     }
 
+    @Override
+    public boolean add(User user) {
+        try {
+            return userMapper.add(user) > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public User getUserById(int id) {
+        try {
+            return userMapper.getUserById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public boolean modify(User user) {
+        try {
+            return userMapper.modify(user) > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

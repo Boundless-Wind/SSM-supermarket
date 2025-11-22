@@ -23,4 +23,28 @@ public interface UserService {
      */
     List<User> getUserListByPage(String queryUserName, int queryUserRole);
 
+    /**
+     * 添加用户
+     *
+     * @param user 用户
+     * @return 是否添加成功
+     */
+    boolean add(User user);
+
+    /**
+     * 根据用户ID查询用户
+     *
+     * @param id 用户ID
+     * @return 用户
+     */
+    User getUserById(int id);
+
+    /**
+     * 修改用户
+     *
+     * @param user 用户
+     * @return 修改结果
+     */
+    boolean modify(User user);
+
 }

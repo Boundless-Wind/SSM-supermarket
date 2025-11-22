@@ -4,12 +4,10 @@ import com.supermarket.domain.Role;
 import com.supermarket.service.RoleService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-@SpringBootTest
-public class RoleTests {
+public class RoleTests extends BaseTests {
 
     @Autowired
     private RoleService roleService;

@@ -1,10 +1,8 @@
 package com.supermarket;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class SpringBootCourseApplicationTests {
+class SpringBootCourseApplicationTests extends BaseTests {
 
     /**
      * 正常性测试

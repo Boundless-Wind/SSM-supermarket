@@ -1,6 +1,5 @@
 package com.supermarket.utils;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -11,10 +10,10 @@ public class Utils {
     /**
      * 分页处理
      *
-     * @param pageNum    页码
-     * @param tList      数据
-     * @param pageSize   每页显示的行数
-     * @param <T>        泛型
+     * @param pageNum  页码
+     * @param tList    数据
+     * @param pageSize 每页显示的行数
+     * @param <T>      泛型
      */
     public static <T> PageInfo<T> getPageInfoAttribute(int pageNum, List<T> tList, int pageSize) {
         // 开启分页
@@ -27,9 +26,9 @@ public class Utils {
     /**
      * 分页处理，默认每页显示5行
      *
-     * @param pageNum    页码
-     * @param tList      数据
-     * @param <T>        泛型
+     * @param pageNum 页码
+     * @param tList   数据
+     * @param <T>     泛型
      */
     public static <T> PageInfo<T> getPageInfoAttribute(int pageNum, List<T> tList) {
         return getPageInfoAttribute(pageNum, tList, 5);

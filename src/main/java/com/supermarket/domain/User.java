@@ -1,6 +1,8 @@
 package com.supermarket.domain;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class User {
@@ -10,6 +12,7 @@ public class User {
     private String userName;
     private String userPassword;
     private int gender;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
     private String phone;
     private String address;

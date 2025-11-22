@@ -13,12 +13,10 @@ import com.supermarket.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -217,5 +215,84 @@ public class UserController {
 
         return "billlist";
     }
+
+    /**
+     * 添加用户页面
+     *
+     * @return useradd.html
+     */
+    @RequestMapping("/useradd")   // 打开添加页面
+    public String addUser() {
+        return "useradd";
+    }
+
+    /**
+     * 添加用户数据
+     *
+     * @param user    用户
+     * @param session session
+     * @return useradd.html
+     */
+    @RequestMapping(value = "/useraddsave", method = RequestMethod.POST)
+    // 以对象方式传值
+    // 1. 前端的useradd.html会把Form里的一系列的input控件的值，组合成一个user对象，传给controller端
+    // 2. 在进行form表单提交时如果input标签中没有name属性的话，那么该标签中的数据是不会被提交到服务器的。
+    // 3. 提交的name的值要和实体类(User)的属性名一致，便于序列化。不一致会造成这个值传递不过去
+    // 4. VIEW端向Controller以对象方式传值的时候，Controller端不要加上@RequestParam
+    public String addUserSave(User user, HttpSession session) {
+        user.setCreatedBy(((User) session.getAttribute("user")).getId());   // 添加用户表的createBy值，代表由当前用户创建
+        user.setCreationDate(new Date());   // 添加用户表的createDate值
+        if (userService.add(user)) {    // 如果添加成功就返回userlist
+            return "redirect:/userlist";
+        }
+        return "useradd";   // 添加不成功留在useradd
+    }
+
+    /**
+     * 修改用户页面
+     *
+     * @param uid   用户id
+     * @param model 模型
+     * @return usermodify.html
+     */
+    @RequestMapping("/usermodify")  // 打开修改页面
+    // 直接标记为参数代表会尝试在post或get里找值
+    public String getUserById(@RequestParam int uid, Model model) {
+        User user = userService.getUserById(uid);
+        model.addAttribute("user", user);
+        return "usermodify";
+    }
+
+    /**
+     * 修改用户数据
+     *
+     * @param user    用户
+     * @param session session
+     * @return usermodify.html
+     */
+    @RequestMapping(value = "/usermodifysave", method = RequestMethod.POST)
+    public String modifyUserSave(User user, HttpSession session) {
+        user.setModifyBy(((User) session.getAttribute("user")).getId());
+        user.setModifyDate(new Date());
+        if (userService.modify(user)) {
+            return "redirect:/userlist";
+        }
+        return "usermodify";
+    }
+
+    /**
+     * 查看用户详情页面
+     *
+     * @param uid   用户id
+     * @param model 模型
+     * @return
+     */
+    @RequestMapping(value = "/userview")
+    public String view(@RequestParam int uid, Model model) {
+        User user = userService.getUserById(uid);
+        model.addAttribute("user", user);
+        return "userview.html";
+    }
+
 
 }

@@ -4,12 +4,10 @@ import com.supermarket.domain.Bill;
 import com.supermarket.service.BillService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-@SpringBootTest
-public class BillTests {
+public class BillTests extends BaseTests {
 
     @Autowired
     private BillService billService;
