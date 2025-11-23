@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>密码修改</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/public.css}"/>
+</head>
+<body>
+
+<div th:replace="head :: html"></div>  <!-- 插入head.html文件 ,注意：号前后有个空格-->
+<div class="right">
+    <div class="location">
+        <strong>你现在所在的位置是:</strong>
+        <span>密码修改页面 >> 密码修改页面</span>
+    </div>
+    <div class="providerAdd">
+        <form id="userForm" name="userForm" method="post" th:action="@{/pwdmodifysave}">
+            <input type="hidden" name="uid" th:value="${session.user.id}"/>
+            <div>
+                <label for="oldpassword">用户旧密码：</label>
+                <input type="password" name="oldpassword" id="oldpassword" value="">
+                <font color="red"></font>
+            </div>
+            <div>
+                <label for="newpassword">用户新密码：</label>
+                <input type="password" name="newpassword" id="newpassword" value="">
+                <font color="red"></font>
+            </div>
+            <div>
+                <label for="rnewpassword">确认新密码：</label>
+                <input type="password" name="rnewpassword" id="rnewpassword" value="">
+                <font color="red"></font>
+            </div>
+            <div class="providerAddBtn">
+                <input type="submit" name="save" id="save" value="保存"/>
+                <input type="button" id="back" name="back" value="返回"/>
+            </div>
+        </form>
+    </div>
+</div>
+</section>
+
+<div th:replace="foot :: html"></div>  <!--插入foot.html文件,注意：号前后有个空格-->
+<script type="text/javascript" th:src="@{js/pwdmodify.js}"></script>
+</body>
+</html>

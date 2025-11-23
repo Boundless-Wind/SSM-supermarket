@@ -15,6 +15,14 @@ public interface UserService {
     User getUserByUserCode(String userCode);
 
     /**
+     * 根据用户账号查询用户是否存在
+     *
+     * @param userCode 用户账号
+     * @return User
+     */
+    User selectUserCodeExist(String userCode);
+
+    /**
      * 根据条件查询用户列表
      *
      * @param queryUserName 用户名称
@@ -46,5 +54,14 @@ public interface UserService {
      * @return 修改结果
      */
     boolean modify(User user);
+
+
+    /**
+     * 删除用户
+     *
+     * @param id 用户ID
+     * @return 修改结果
+     */
+    boolean deleteUserById(int id);
 
 }

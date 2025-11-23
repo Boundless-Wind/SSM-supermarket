@@ -15,7 +15,7 @@
         <span>用户管理页面 >> 用户修改页面</span>
     </div>
     <div class="providerAdd">
-        <form id="userForm" name="userForm" method="post" action="/usermodifysave">
+        <form id="userForm" name="userForm" method="post" th:action="@{/usermodifysave}">
             <input type="hidden" name="id" th:value="${user.id }"/>
             <div>
                 <label for="userName">用户名称：</label>
@@ -23,7 +23,7 @@
                 <font color="red"></font>
             </div>
             <div>
-                <label>用户性别：</label>
+                <label for="gender">用户性别：</label>
                 <select name="gender" id="gender">
                     <option value="1" th:if="${user.gender==1}" selected="selected">男</option>
                     <option value="2" th:if="${user.gender==2}" selected="selected">女</option>
@@ -32,23 +32,23 @@
                 </select>
             </div>
             <div>
-                <label for="data">出生日期：</label>
+                <label for="birthday">出生日期：</label>
                 <input type="text" Class="Wdate" id="birthday" name="birthday"
                        th:value="${#dates.format(user.birthday,'yyyy-MM-dd')}" onclick="WdatePicker();"/>
                 <font color="red"></font>
             </div>
 
             <div>
-                <label for="userphone">用户电话：</label>
+                <label for="phone">用户电话：</label>
                 <input type="text" name="phone" id="phone" th:value="${user.phone }">
                 <font color="red"></font>
             </div>
             <div>
-                <label for="userAddress">用户地址：</label>
+                <label for="address">用户地址：</label>
                 <input type="text" name="address" id="address" th:value="${user.address }">
             </div>
             <div>
-                <label>用户角色：</label>
+                <label for="userRole">用户角色：</label>
                 <!-- 列出所有的角色分类 -->
                 <input type="hidden" value="${user.userRole }" id="rid"/>
                 <select name="userRole" id="userRole">

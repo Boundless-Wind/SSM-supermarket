@@ -83,5 +83,12 @@
         where id = #{id}
     </update>
 
+    <!--删除数据-->
+    <delete id="deleteUserById" parameterType="int">
+        delete
+        from smbms_user
+        where id = #{id}
+    </delete>
+
 
 </mapper>

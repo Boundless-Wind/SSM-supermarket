@@ -25,4 +25,61 @@
         </association>
     </resultMap>
 
+    <!-- 增加用户 -->
+    <insert id="add" parameterType="User">
+        insert into smbms_bill (billCode,productName
+        <if test="productDesc!= null and productDesc!=''">,productDesc</if>
+        <if test="productUnit!= null and productUnit!=''">,productUnit</if>
+        <if test="productCount!= null and productCount!=0">,productCount</if>
+        <if test="totalPrice!= null and totalPrice!=0">,totalPrice</if>
+        <if test="isPayment!= null and isPayment!=0">,isPayment</if>
+        <if test="createdBy!= null and createdBy!=0">,createdBy</if>
+        <if test="creationDate!= null">,creationDate</if>
+        <if test="providerId!= null and providerId!=0">,providerId</if>
+        )
+        values (#{billCode},#{productName}
+        <if test="productDesc!= null and productDesc!=''">,#{productDesc}</if>
+        <if test="productUnit!= null and productUnit!=''">,#{productUnit}</if>
+        <if test="productCount!= null and productCount!=0">,#{productCount}</if>
+        <if test="totalPrice!= null and totalPrice!=0">,#{totalPrice}</if>
+        <if test="isPayment!= null and isPayment!=0">,#{isPayment}</if>
+        <if test="createdBy!= null and createdBy!=0">,#{createdBy}</if>
+        <if test="creationDate!= null">,#{creationDate}</if>
+        <if test="providerId!= null and providerId!=0">,#{providerId}</if>
+        )
+    </insert>
+
+    <!-- 根据id获取用户信息 -->
+    <select id="getBillById" resultMap="BillWithProName" parameterType="int">
+        select *
+        from smbms_bill b
+                 join smbms_provider p on b.providerId = p.id
+        where b.id = #{id}
+    </select>
+
+    <!-- 根据id修改数据 -->
+    <update id="modify" parameterType="Bill">
+        update smbms_bill
+        <set>
+            <if test="billCode!= null and billCode!=''">,billCode=#{billCode}</if>
+            <if test="productName!= null and productName!=''">,productName=#{productName}</if>
+            <if test="productDesc!= null and productDesc!=''">,productDesc=#{productDesc}</if>
+            <if test="productUnit!= null and productUnit!=''">,productUnit=#{productUnit}</if>
+            <if test="productCount!= null and productCount!=0">,productCount=#{productCount}</if>
+            <if test="totalPrice!= null and totalPrice!=0">,totalPrice=#{totalPrice}</if>
+            <if test="isPayment!= null and isPayment!=0">,isPayment=#{isPayment}</if>
+            <if test="modifyBy != null">,modifyBy=#{modifyBy}</if>
+            <if test="modifyDate != null">,modifyDate=#{modifyDate}</if>
+            <if test="providerId!= null and providerId!=0">,providerId=#{providerId}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除数据-->
+    <delete id="deleteBillById" parameterType="int">
+        delete
+        from smbms_bill
+        where id = #{id}
+    </delete>
+
 </mapper>

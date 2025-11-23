@@ -16,7 +16,7 @@
         <h1>超市订单管理系统</h1>
     </header>
     <section class="loginCont">
-        <form class="loginForm" id="actionForm" name="actionForm" method="post" action="/dologin">
+        <form class="loginForm" id="actionForm" name="actionForm" method="post" th:action="@{/dologin}">
             <div class="info" th:text="${error}"></div>
             <div class="inputbox">
                 <label for="userCode">帐号：</label>

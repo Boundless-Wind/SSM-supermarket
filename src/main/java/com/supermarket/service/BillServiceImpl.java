@@ -18,4 +18,43 @@ public class BillServiceImpl implements BillService {
         return billMapper.getBillListByPage(productName, providerId);
     }
 
+    @Override
+    public boolean add(Bill bill) {
+        try {
+            return billMapper.add(bill) > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public Bill getBillById(int id) {
+        try {
+            return billMapper.getBillById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public boolean modify(Bill bill) {
+        try {
+            return billMapper.modify(bill) > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteBillById(int id) {
+        try {
+            return billMapper.deleteBillById(id) > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

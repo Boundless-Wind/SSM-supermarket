@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>供应商修改</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/public.css}"/>
+</head>
+<body>
+
+<div th:replace="head :: html"></div>  <!-- 插入head.html文件 ,注意：号前后有个空格-->
+<div class="right">
+    <div class="location">
+        <strong>你现在所在的位置是:</strong>
+        <span>供应商管理页面 >> 供应商修改页面</span>
+    </div>
+    <div class="providerAdd">
+        <form id="providerForm" name="providerForm" method="post" th:action="@{/providermodifysave}">
+            <input type="hidden" name="id" th:value="${provider.id }"/>
+            <div>
+                <label for="proContact">联系人名称：</label>
+                <input type="text" name="proContact" id="proContact" th:value="${provider.proContact }">
+                <font color="red"></font>
+            </div>
+            <div>
+                <label for="proPhone">联系人电话：</label>
+                <input type="text" name="proPhone" id="proPhone" th:value="${provider.proPhone }">
+                <font color="red"></font>
+            </div>
+            <div class="providerAddBtn">
+                <input type="submit" name="save" id="save" value="保存"/>
+                <input type="button" id="back" name="back" value="返回"/>
+            </div>
+        </form>
+    </div>
+</div>
+</section>
+
+<div th:replace="foot :: html"></div>  <!--插入foot.html文件,注意：号前后有个空格-->
+<script type="text/javascript" th:src="@{js/providermodify.js}"></script>
+</body>
+</html>

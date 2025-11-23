@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户添加</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/public.css}"/>
+</head>
+<body>
+<div th:replace="head :: html"></div>  <!-- 插入head.html文件 ,注意：号前后有个空格-->
+
+<div class="right">
+    <div class="location">
+        <strong>你现在所在的位置是:</strong>
+        <span>订单管理页面 >> 订单添加页面</span>
+    </div>
+    <div class="providerAdd">
+        <form id="billForm" name="billForm" method="post" th:action="@{/billaddsave}">
+            <input type="hidden" name="method" value="add">
+            <!--div的class 为error是验证错误，ok是验证成功-->
+            <div>
+                <label for="billCode">订单编码：</label>
+                <input type="text" name="billCode" id="billCode" value="">
+                <!-- 放置提示信息 -->
+                <font color="red"></font>
+            </div>
+            <div>
+                <label for="productName">商品名称：</label>
+                <input type="text" name="productName" id="productName" value="">
+                <font color="red"></font>
+            </div>
+            <div>
+                <label for="productDesc">商品描述：</label>
+                <input type="text" name="productDesc" id="productDesc" value="">
+                <font color="red"></font>
+            </div>
+            <div>
+                <label for="productUnit">商品单位：</label>
+                <input type="text" name="productUnit" id="productUnit" value="">
+                <font color="red"></font>
+            </div>
+            <div>
+                <label for="productCount">商品数量：</label>
+                <input type="text" name="productCount" id="productCount" value="">
+                <font color="red"></font>
+            </div>
+            <div>
+                <label for="totalPrice">总价格：</label>
+                <input type="text" name="totalPrice" id="totalPrice" value="">
+                <font color="red"></font>
+            </div>
+            <div>
+                <label>订单已支付：</label>
+                <select name="isPayment" id="isPayment">
+                    <option value="1" selected="selected">已支付</option>
+                    <option value="2">未支付</option>
+                </select>
+            </div>
+            <div>
+                <label for="providerId">供应商：</label>
+                <!-- 列出所有的供应商 -->
+                <select name="providerId" id="providerId"></select>
+                <font color="red"></font>
+            </div>
+            <div class="providerAddBtn">
+                <input type="button" name="add" id="add" value="保存">
+                <input type="button" id="back" name="back" value="返回">
+            </div>
+        </form>
+    </div>
+</div>
+</section>
+
+<div th:replace="foot :: html"></div>  <!--插入foot.html文件,注意：号前后有个空格-->
+<script type="text/javascript" th:src="@{/js/billadd.js}"></script> <!--引入useradd.js文件-->
+</body>
+</html>

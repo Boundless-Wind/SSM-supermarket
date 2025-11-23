@@ -23,4 +23,15 @@ public class ProviderTests extends BaseTests {
         }
     }
 
+    /**
+     * 测试获取所有供应商列表
+     */
+    @Test
+    void testGetProviderListAll() {
+        List<Provider> providerList = roleService.getProviderListByPage(null);
+        for (Provider provider : providerList) {
+            System.out.println("供应商ID: " + provider.getId() + "，供应商代码: " + provider.getProCode() + "，供应商名称:" + provider.getProName());
+        }
+    }
+
 }

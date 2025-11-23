@@ -38,19 +38,24 @@ $(function () {
 
     $.ajax({
         type: "GET",//请求类型
-        url: path + "/jsp/bill.do",//请求的url
+        url: path + "/getproviderlist",//请求的url
         data: {method: "getproviderlist"},//请求参数
         dataType: "json",//ajax接口（请求url）返回的数据类型
         success: function (data) {//data：返回数据（json对象）
+            // console.log(data)
+            // 不需用解析，不是太理解它接收的到底是什么，难道不应该是字符串吗？难道先自动解析了？
+            // data=$.parseJSON(data);//将字符串data解析为标准json对象
+            // console.log(data)
             if (data != null) {
-                $("select").html("");//通过标签选择器，得到select标签，适用于页面里只有一个select
+                // $("providerId").html("");//通过标签选择器，得到providerId标签，适用于页面里只有一个providerId
+                providerId.html("");//通过id选择器，得到providerId标签，适用于页面里只有一个providerId
                 var options = "<option value=\"0\">请选择</option>";
                 for (var i = 0; i < data.length; i++) {
                     //alert(data[i].id);
                     //alert(data[i].proName);
                     options += "<option value=\"" + data[i].id + "\">" + data[i].proName + "</option>";
                 }
-                $("select").html(options);
+                providerId.html(options);
             }
         },
         error: function (data) {//当访问时候，404，500 等非200的错误状态码

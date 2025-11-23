@@ -19,6 +19,15 @@ public class UserServiceImpl implements UserService {
         return userMapper.getUserByUserCode(userCode);
     }
 
+    public User selectUserCodeExist(String userCode) {
+        try {
+            return userMapper.getUserByUserCode(userCode);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @Override
     public List<User> getUserListByPage(String queryUserName, int queryUserRole) {
         return userMapper.getUserListByPage(queryUserName, queryUserRole);
@@ -48,6 +57,16 @@ public class UserServiceImpl implements UserService {
     public boolean modify(User user) {
         try {
             return userMapper.modify(user) > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteUserById(int id) {
+        try {
+            return userMapper.deleteUserById(id) > 0;
         } catch (Exception e) {
             e.printStackTrace();
         }

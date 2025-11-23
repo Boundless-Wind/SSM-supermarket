@@ -1,19 +1,19 @@
 package com.supermarket.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.supermarket.domain.Bill;
-import com.supermarket.domain.Provider;
 import com.supermarket.domain.Role;
 import com.supermarket.domain.User;
-import com.supermarket.service.BillService;
-import com.supermarket.service.ProviderService;
 import com.supermarket.service.RoleService;
 import com.supermarket.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
@@ -26,91 +26,6 @@ public class UserController {
     private UserService userService;
     @Autowired
     private RoleService roleService;
-    @Autowired
-    private ProviderService providerService;
-    @Autowired
-    private BillService billService;
-
-    // /**
-    //  //  * 默认页面
-    //  //  *
-    //  //  * @return login.html
-    //  //  */
-    // @GetMapping("/")
-    // public String firstpage(){
-    //     return "login.html";
-    // }
-
-    /**
-     * 登录页面、主页
-     *
-     * @return login.html
-     */
-    @GetMapping({"/login", "/"})
-    public String login() {
-        return "login";
-    }
-
-    /**
-     * 登录处理
-     *
-     * @param userCode     用户账号
-     * @param userPassword 用户密码
-     * @param model        模型
-     * @param session      session
-     * @return welcome.html
-     */
-    @PostMapping("/dologin")
-    public String doLogin(@RequestParam String userCode, @RequestParam String userPassword, Model model, HttpSession session) {
-        // 读取用户和密码
-        System.out.println("帐号和密码是" + userCode + "-" + userPassword);
-        User user = userService.getUserByUserCode(userCode);    // 从数据库中读取真实的密码
-
-        // 登录失败，回到login.html
-        if (user == null || !userPassword.equals(user.getUserPassword())) {
-            model.addAttribute("error", "用户名或密码不正确");
-            return "login";
-        }
-
-        // 登录成功，转到welcome.html
-        session.setAttribute("user", user); // 添加session值
-        return "redirect:/welcome";   // 密码正确就跳转去welcome.html
-    }
-
-    /**
-     * 登录成功返回welcome，失败跳转失败页面
-     *
-     * @param session session
-     * @return welcome.html
-     */
-    @GetMapping("/welcome")
-    public String welcome(HttpSession session) {
-        // 如果用户没有登录就回到login
-        if (session.getAttribute("user") == null) return "redirect:/syserror";
-        return "welcome";
-    }
-
-    /**
-     * 退出登录
-     *
-     * @param session session
-     * @return login.html
-     */
-    @GetMapping("/logout")  // 退出登录页面
-    public String logout(HttpSession session) {
-        session.removeAttribute("user"); // 清除掉Session中user的值
-        return "redirect:/login"; // 回到login.sjp
-    }
-
-    /**
-     * 出错页面
-     *
-     * @return syserror.html
-     */
-    @GetMapping("/syserror") // 出错页面
-    public String sysError() {
-        return "syserror";
-    }
 
     /**
      * 用户列表
@@ -148,72 +63,7 @@ public class UserController {
         List<User> userList = userService.getUserListByPage(queryUserName, _queryUserRole);// 查询用户列表
         model.addAttribute("pageInfo", new PageInfo<>(userList));// 将查询出的值传给前端
 
-        return "userlist";
-    }
-
-    /**
-     * 供应商列表
-     *
-     * @param model             模型
-     * @param session           session
-     * @param queryProviderName 供应商名称
-     * @param pageNum           页码
-     * @return providerlist.html
-     */
-    @RequestMapping("/providerlist")
-    public String getProviderList(Model model, HttpSession session, @RequestParam(value = "queryProviderName", required = false) String queryProviderName, @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
-        if (session.getAttribute("user") == null) {
-            return "redirect:/syserror";
-        }
-        System.out.println("供应商姓名:" + queryProviderName);
-
-        // 显示传入的参数
-        model.addAttribute("queryProviderName", queryProviderName); // 传递查询的供应商名给前端
-
-        // 开启分页
-        PageHelper.startPage(pageNum, 5);
-        List<Provider> providerList = providerService.getProviderListByPage(queryProviderName);// 查询供应商列表
-        model.addAttribute("pageInfo", new PageInfo<>(providerList));// 将查询出的值传给前端
-
-        return "providerlist";
-    }
-
-    /**
-     * 订单列表
-     *
-     * @param model           模型
-     * @param session         session
-     * @param queryBillName   订单名称
-     * @param queryProviderId 订单供货商
-     * @param pageNum         页码
-     * @return billlist.html
-     */
-    @RequestMapping("/billlist")
-    public String getBillList(Model model, HttpSession session, @RequestParam(value = "queryBillName", required = false) String queryBillName, @RequestParam(value = "queryProviderId", required = false) String queryProviderId, @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
-        if (session.getAttribute("user") == null) {
-            return "redirect:/syserror";
-        }
-        System.out.println("订单姓名:" + queryBillName + ",订单供货商:" + queryProviderId);
-
-        // 将供货商id赋值给_queryProviderId
-        int _queryProviderId = 0;  // 给订单供货商赋值
-        if (queryProviderId != null && !queryProviderId.trim().isEmpty())   // 如果前端传过来的供货商不为空
-            _queryProviderId = Integer.parseInt(queryProviderId);
-
-        // 显示传入的参数
-        model.addAttribute("queryProviderId", queryProviderId);// 传递查询的供应商id给前端
-        model.addAttribute("queryBillName", queryBillName); // 传递查询的用户名给前端
-
-        // 查询供应商信息
-        List<Provider> providerList = providerService.getProviderListByPage(null);  // 读取供应商表信息，传入空值返回全部供应商
-        model.addAttribute("providerList", providerList); // 传递供应商表值给前端
-
-        // 开启分页，必须在查询之前开启
-        PageHelper.startPage(pageNum, 5);
-        List<Bill> billList = billService.getBillListByPage(queryBillName, _queryProviderId);// 查询订单列表
-        model.addAttribute("pageInfo", new PageInfo<>(billList));// 将查询出的值传给前端
-
-        return "billlist";
+        return "user/userlist";
     }
 
     /**
@@ -223,7 +73,7 @@ public class UserController {
      */
     @RequestMapping("/useradd")   // 打开添加页面
     public String addUser() {
-        return "useradd";
+        return "user/useradd";
     }
 
     /**
@@ -245,22 +95,22 @@ public class UserController {
         if (userService.add(user)) {    // 如果添加成功就返回userlist
             return "redirect:/userlist";
         }
-        return "useradd";   // 添加不成功留在useradd
+        return "user/useradd";   // 添加不成功留在useradd
     }
 
     /**
      * 修改用户页面
      *
-     * @param uid   用户id
-     * @param model 模型
+     * @param billid 用户id
+     * @param model  模型
      * @return usermodify.html
      */
     @RequestMapping("/usermodify")  // 打开修改页面
-    // 直接标记为参数代表会尝试在post或get里找值
-    public String getUserById(@RequestParam int uid, Model model) {
-        User user = userService.getUserById(uid);
+    // 直接标记为参数代表会尝试在post或get里找值，不写value就是get参数
+    public String getUserById(@RequestParam int billid, Model model) {
+        User user = userService.getUserById(billid);
         model.addAttribute("user", user);
-        return "usermodify";
+        return "user/usermodify";
     }
 
     /**
@@ -277,22 +127,69 @@ public class UserController {
         if (userService.modify(user)) {
             return "redirect:/userlist";
         }
-        return "usermodify";
+        return "user/usermodify";
     }
 
     /**
      * 查看用户详情页面
      *
-     * @param uid   用户id
-     * @param model 模型
-     * @return
+     * @param billid 用户id
+     * @param model  模型
+     * @return userview.html
      */
     @RequestMapping(value = "/userview")
-    public String view(@RequestParam int uid, Model model) {
-        User user = userService.getUserById(uid);
+    public String view(@RequestParam int billid, Model model) {
+        User user = userService.getUserById(billid);
         model.addAttribute("user", user);
-        return "userview.html";
+        return "user/userview";
     }
 
+//    /**
+//     * 根据id发送user数据，以Json格式
+//     *
+//     * @param uid 用户id
+//     * @return User-json对象
+//     */
+//    @RequestMapping(value = "/getuserjson", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+//    @ResponseBody   // 不再要求返回一个视图，而是返回一个数据，将结果直接写入响应体中
+//    public String getuserjson(@RequestParam int uid) {
+//        User user = userService.getUserById(uid);
+//        String json = JSON.toJSONString(user);// 解析成json格式
+//        return JSONArray.toJSONString(json);
+//    }
+
+    /**
+     * 判断userCode是否存在
+     *
+     * @param userCode 用户编码
+     * @return boolean-json对象
+     */
+    @RequestMapping(value = "/ucexist", produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public Object ucexist(@RequestParam String userCode) {
+        String data = "noexist";
+        // 前端传入校验，如果userCode是空值，直接返回已存在。后端检测校验，如果不为空，代表存在
+        if (userCode == null || userCode.isEmpty() || userService.selectUserCodeExist(userCode) != null) data = "exist";
+        // 将data转为json对象,并将结果发回给当前页面
+        return JSONArray.toJSONString("{\"userCode\":\"" + data + "\"}");
+    }
+
+    /**
+     * 删除用户数据
+     *
+     * @param uid 用户id
+     * @return boolean-json对象
+     */
+    @RequestMapping("/deluser")
+    @ResponseBody
+    public Object deluser(@RequestParam int uid) {
+        String data = "{\"delResult\":\"false\"}";  // 初始化字符串
+        boolean result = userService.deleteUserById(uid);
+        if (result)
+            data = "{\"delResult\":\"true\"}"; // 删除成功
+        else
+            data = "{\"delResult\":\"false\"}"; // 删除失败
+        return JSONArray.toJSONString(data);// 将data转为json对象,并将结果发回给当前页面
+    }
 
 }

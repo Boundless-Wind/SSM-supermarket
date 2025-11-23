@@ -49,5 +49,12 @@ public interface UserMapper {
      */
     int modify(User user) throws Exception;
 
+    /**
+     * 删除用户
+     *
+     * @param id 用户ID
+     * @return 删除结果
+     */
+    int deleteUserById(int id) throws Exception;
 
 }

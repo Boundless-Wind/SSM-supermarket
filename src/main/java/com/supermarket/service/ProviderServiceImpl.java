@@ -17,4 +17,45 @@ public class ProviderServiceImpl implements ProviderService {
     public List<Provider> getProviderListByPage(String proName) {
         return providerMapper.getProviderListByPage(proName);
     }
+
+    @Override
+    public boolean add(Provider provider) {
+        try {
+            return providerMapper.add(provider) > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public Provider getProviderById(int id) {
+        try {
+            return providerMapper.getProviderById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public boolean modify(Provider provider) {
+        try {
+            return providerMapper.modify(provider) > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteProviderById(int id) {
+        try {
+            return providerMapper.deleteProviderById(id) > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

@@ -1,4 +1,9 @@
-var path = $("#path").val();
+// var path = $("#path").val();
+var path = document.location.href;
+index =  path.lastIndexOf('/'); //获取最后一个‘/’的位置
+var url = path.slice(0, index); //截取url
+path=url;
+
 var imgYes = "<img width='15px' src='" + path + "/images/y.png' />";
 var imgNo = "<img width='15px' src='" + path + "/images/n.png' />";
 

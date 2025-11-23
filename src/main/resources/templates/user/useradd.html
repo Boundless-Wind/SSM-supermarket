@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>用户添加</title>
     <link type="text/css" rel="stylesheet" th:href="@{/css/style.css}"/>
     <link type="text/css" rel="stylesheet" th:href="@{/css/public.css}"/>
 </head>
@@ -15,7 +15,7 @@
         <span>用户管理页面 >> 用户添加页面</span>
     </div>
     <div class="providerAdd">
-        <form id="userForm" name="userForm" method="post" action="/useraddsave">
+        <form id="userForm" name="userForm" method="post" th:action="@{/useraddsave}">
             <input type="hidden" name="method" value="add">
             <!--div的class 为error是验证错误，ok是验证成功-->
             <div>
@@ -81,9 +81,6 @@
 </section>
 
 <div th:replace="foot :: html"></div>  <!--插入foot.html文件,注意：号前后有个空格-->
-<script type="text/javascript" th:src="@{/js/jquery-1.8.3.min.js}"></script>
-<script type="text/javascript" th:src="@{/js/common.js}"></script>
-<script type="text/javascript" th:src="@{/calendar/WdatePicker.js}"></script>
 <script type="text/javascript" th:src="@{/js/useradd.js}"></script> <!--引入useradd.js文件-->
 </body>
 </html>

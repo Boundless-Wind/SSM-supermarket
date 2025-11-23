@@ -67,21 +67,22 @@ $(function () {
         deleteUser(userObj);
     });
 
-    $(".deleteUser").on("click", function () {
-        userObj = $(this);
-        changeDLGContent("你确定要删除用户【" + userObj.attr("username") + "】吗？");
-        openYesOrNoDLG();
-    });
+    // $(".deleteUser").on("click", function () {
+    //     userObj = $(this);
+    //     changeDLGContent("你确定要删除用户【" + userObj.attr("username") + "】吗？");
+    //     openYesOrNoDLG();
+    // });
 
-    /*$(".deleteUser").on("click",function(){
+    $(".deleteUser").on("click",function(){
         var obj = $(this);
         if(confirm("你确定要删除用户【"+obj.attr("username")+"】吗？")){
             $.ajax({
                 type:"GET",
-                url:path+"/jsp/user.do",
+                url:path+"/deluser",
                 data:{method:"deluser",uid:obj.attr("userid")},
                 dataType:"json",
                 success:function(data){
+                    data=$.parseJSON(data);//将字符串data解析为标准json对象
                     if(data.delResult == "true"){//删除成功：移除删除行
                         alert("删除成功");
                         obj.parents("tr").remove();
@@ -96,5 +97,5 @@ $(function () {
                 }
             });
         }
-    });*/
+    });
 });
