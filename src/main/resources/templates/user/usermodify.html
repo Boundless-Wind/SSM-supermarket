@@ -33,7 +33,7 @@
             </div>
             <div>
                 <label for="birthday">出生日期：</label>
-                <input type="text" Class="Wdate" id="birthday" name="birthday"
+                <input type="date" Class="Wdate" id="birthday" name="birthday"
                        th:value="${#dates.format(user.birthday,'yyyy-MM-dd')}" onclick="WdatePicker();"/>
                 <font color="red"></font>
             </div>
