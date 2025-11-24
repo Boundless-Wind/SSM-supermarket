@@ -51,12 +51,12 @@ $(function () {
     $(".viewUser").on("click", function () {
         //将被绑定的元素（a）转换成jquery对象，可以使用jquery方法
         var obj = $(this);
-        window.location.href = path + "/userview?uid=" + obj.attr("userid");
+        window.location.href = path + "/userview?userid=" + obj.attr("userid");
     });
 
     $(".modifyUser").on("click", function () {
         var obj = $(this);
-        window.location.href = path + "/usermodify?uid=" + obj.attr("userid");
+        window.location.href = path + "/usermodify?userid=" + obj.attr("userid");
     });
 
     $('#no').click(function () {

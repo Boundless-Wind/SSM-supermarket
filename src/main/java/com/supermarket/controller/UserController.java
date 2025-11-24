@@ -101,14 +101,14 @@ public class UserController {
     /**
      * 修改用户页面
      *
-     * @param billid 用户id
+     * @param userid 用户id
      * @param model  模型
      * @return usermodify.html
      */
     @RequestMapping("/usermodify")  // 打开修改页面
     // 直接标记为参数代表会尝试在post或get里找值，不写value就是get参数
-    public String getUserById(@RequestParam int billid, Model model) {
-        User user = userService.getUserById(billid);
+    public String getUserById(@RequestParam int userid, Model model) {
+        User user = userService.getUserById(userid);
         model.addAttribute("user", user);
         return "user/usermodify";
     }
@@ -133,13 +133,13 @@ public class UserController {
     /**
      * 查看用户详情页面
      *
-     * @param billid 用户id
+     * @param userid 用户id
      * @param model  模型
      * @return userview.html
      */
     @RequestMapping(value = "/userview")
-    public String view(@RequestParam int billid, Model model) {
-        User user = userService.getUserById(billid);
+    public String view(@RequestParam int userid, Model model) {
+        User user = userService.getUserById(userid);
         model.addAttribute("user", user);
         return "user/userview";
     }
